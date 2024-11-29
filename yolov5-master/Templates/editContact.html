@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit contact details</title>
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #176EB3; /* Primary color */
+            --secondary-color: #6C63FF; /* Secondary color */
+            --text-color: #444; /* Text color */
+            --background-color: #fff; /* Background color */
+            --button-hover-color: #0A0DB3; /* Button hover color */
+        }
+        
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Apply custom font */
+        body, input {
+            font-family: "Poppins", sans-serif;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+            margin-right: 5px;
+            width: 250%;
+        }
+        
+        .navbar-link {
+            margin-right: 10px;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        
+        /* Header styles */
+        .header {
+            text-align: center;
+        }
+        
+        .header-text {
+            margin-top: 5%;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .heading {
+            display: inline;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* Form container styles */
+        #container {
+            text-align: center;
+        }
+        
+        /* Form styles */
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0rem 5rem;
+            overflow: hidden;
+        }
+        
+        label {
+            color: var(--text-color);
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            max-width: 380px;
+            width: 100%;
+            background-color: var(--background-color);
+            margin: 10px 0;
+            height: 55px;
+            border-radius: 55px;
+            display: grid;
+            grid-template-columns: 15% 85%;
+            padding: 0 0.4rem;
+            position: relative;
+            border: 1px solid var(--primary-color);
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: var(--secondary-color);
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            color: #000000;
+            font-weight: 1000;
+        }
+        
+        button[type="submit"] {
+            width: 150px;
+            background-color: var(--primary-color);
+            border: none;
+            outline: none;
+            height: 49px;
+            border-radius: 49px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.5s;
+            font-weight: bold;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: var(--button-hover-color);
+        }
+        
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .navbar {
+                width: 100%;
+            }
+        
+            .navbar-link {
+                margin-right: 5px;
+            }
+        
+            .navbar-icon {
+                width: 24px;
+                height: 24px;
+            }
+        
+            .header-text {
+                font-size: 1.5rem;
+            }
+        }
+        </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300&family=Poppins:wght@100&display=swap" rel="stylesheet">
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 10px; margin-right: 5px; ">
+        <a href='/emergencyContact' id='forgotPassword' style="margin-right: 10px;">back</a>
+        <img src="/static/left-arrow.png" height="24" width="24"/>
+    </div>
+    <center>
+        <div class="header" >
+            <p class="header-text" style="margin-top: 5%; margin-bottom:30px;" >Varishta Rakshak &#129309</p>
+            <div class="button-and-heading">
+                <b><p style="display: inline; "  >Edit Emergency Contact</p></b>
+            </div>
+        </div> <br> <br>
+<form action="{{ url_for('update_account', parameter=parameter)}} " method="post">
+    <label for="first_name">Name:</label>
+    <input type="text" id="first_name" name="first_name" required>
+
+    <label for="phone_number">Phone Number:</label>
+            <input type="number" id="phone_number" name="phone_number" required>
+            <label for="phone_number">Phone Number(optional):</label>
+            <input type="number" id="phone_number2" name="phone_number2" >
+    <button type="submit">Update Account</button>
+</form>
+</center>
+</body>
+</html>

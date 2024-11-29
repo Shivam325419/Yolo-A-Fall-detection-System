@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection History</title>
+    <style>
+        body{
+            font-family: "Inria Sans", sans-serif;
+            
+        }
+        .navbar {
+            background-color: #F1F2ED;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .navbar-logo img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar-menu-item {
+            margin-bottom: 20px;
+        }
+
+        .navbar-menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .navbar-profile img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Add styling for links and images */
+        .navbar-menu-item a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .line {
+            height: 1px;
+            width: 100%;
+            background-color: #080202;
+            margin-top: 340px ;
+        }
+        .line1 {
+            height: 1px;
+            width: 100%;
+            background-color: #080202;
+            margin-top: 20px ;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="navbar-menu">
+            <li class="navbar-menu-item">
+                <img src="/static/search-engine.png" alt="User Profile" style="height: 24px; width: 24px;">
+                <a href="/dashboard">Home</a>
+            </li>
+            <div class="line1"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/siren.png" alt="Emergency Contacts" style="height: 24px; width: 24px;">
+                <a href="/emergencyContact">Emergency Contact</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/help-desk.png" alt="Support" style="height: 24px; width: 24px;">
+                <a href="/support">Support</a>
+            </li>
+            <!-- <li class="navbar-menu-item">
+                <img src="/static/analytics.png" alt="Statistics" style="height: 24px; width: 24px;">
+                <a href="/statistics">Statistics</a> -->
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/exit.png" alt="Logout" style="height: 24px; width: 24px;">
+                <a href="/logout">Logout</a>
+            </li>
+            <div class="line"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/customer.png" alt="User Profile" style="height: 24px; width: 24px; border-radius: 50%;">
+                <a href="/profile">{{user_name}}</a>
+            </li>
+        
+    </div>
+        </ul>
+        <center>
+            <p>Varishta Rakshak &#129309</p>
+            <div class="container" >
+                {% if not history %}
+                    <p>No detection history found!</p>
+                {% else %}
+                    <table>
+                        <tbody>
+                            {% for events in history %}
+                                <tr>
+                                    <td>{{ events.Day }}</td>
+                                    <td>{{ events.Date }}</td>
+                                    <td>{{ events.Time }}</td>
+                                    <td>{{ events.Month }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </center>   
+</body>
+</html>

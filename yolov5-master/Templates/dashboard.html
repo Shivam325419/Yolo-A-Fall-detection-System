@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Styling for the navbar */
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: #F1F2ED;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+            font-size: 18px;
+            padding: 20px 0;
+        }
+
+        .navbar-logo img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar-menu-item {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .navbar-menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .navbar-profile img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Add styling for links and images */
+        .navbar-menu-item a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .line {
+            width: 2px;
+            height: 20px;
+            background-color: #fff;
+            margin-top: 340px ;
+        }
+        .line1 {
+            height: 1px;
+            width: 100%;
+            background-color: #fff;
+            margin-top: 20px ;
+        }
+        .video-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        p {
+            margin: 0;
+        }
+        #img-1 {
+            width: 640px;
+            height: 480px;
+            border: 5px solid rgb(23, 140, 179);
+            border-radius: 10px;
+        }
+        .social-text {
+      padding: 0.7rem 0;
+      font-size: 1rem;
+    }
+        .title {
+      font-size: 2.2rem;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="navbar-menu">
+            <li class="navbar-menu-item">
+                <img src="/static/search-engine.png" alt="User Profile" style="height: 24px; width: 24px;">
+                <a href="/introduction">Home</a>
+            </li>
+            <div class="line1"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/siren.png" alt="Emergency Contacts" style="height: 24px; width: 24px;">
+                <a href="/emergencyContact">Emergency Contacts</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/detective.png" alt="Detection" style="height: 24px; width: 24px;">
+                <a href="/detectionHistory">Detection History</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/help-desk.png" alt="Support" style="height: 24px; width: 24px;">
+                <a href="/support">Support</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/analytics.png" alt="Statistics" style="height: 24px; width: 24px;">
+                <a href="/statistics">Statistics</a>
+            </li> 
+            <li class="navbar-menu-item">
+                <img src="/static/exit.png" alt="Logout" style="height: 24px; width: 24px;">
+                <a href="/logout">Logout</a>
+            </li>
+            <div class="line"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/customer.png" alt="User Profile" style="height: 24px; width: 24px; border-radius: 50%;">
+                <a href="/profile">{{user_name}}</a>
+            </li>
+         
+    </div>
+        </ul>
+        <center>
+            <a href="/introduction" style="text-decoration: none; color: #000;">
+                <h1 class="title">Varishta Rakshak 🤝</h1>
+            </a> 
+            
+            <p class="social-text"><b>24x7 Video Surveillance</b></p>
+        <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="webcam" type="video/mp4" autoplay controls loop id="img-1"></img>
+    </center>   
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var video = document.getElementById('img-1');
+        video.src = "{{ video_feed }}";
+    });
+</script>
+    </body>
+
+</html>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: rgb(23, 140, 179);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-size: 18px;
+        }
+        .navbar-menu {
+            list-style-type: none;
+            display: flex;
+        }
+        .navbar-menu-item {
+            margin-right: 20px;
+        }
+        .navbar-menu-item a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        .line {
+            width: 2px;
+            height: 20px;
+            background-color: #fff;
+            margin: 0 10px;
+        }
+        .line1 {
+            width: 2px;
+            height: 20px;
+            background-color: #fff;
+            margin: 0 10px;
+        }
+        p {
+            margin: 0;
+        }
+        .video-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #img-1 {
+            width: 640px;
+            height: 480px;
+            border: 5px solid rgb(23, 140, 179);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="navbar-menu">
+            <li class="navbar-menu-item">
+                <img src="/static/search-engine.png" alt="User Profile" style="height: 24px; width: 24px;">
+                <a href="/introduction">Home</a>
+            </li>
+            <div class="line1"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/siren.png" alt="Emergency Contacts" style="height: 24px; width: 24px;">
+                <a href="/emergencyContact">Emergency Contact</a>
+            </li>
+        </ul>
+        
+        <ul class="navbar-menu">
+            <div class="line"></div>
+        </ul>
+    </div>
+
+    <div class="video-container">
+        <a href="/introduction" style="text-decoration: none; color: #000;">
+            <p>Varishta Rakshak 📡</p>
+        </a> 
+        <p>24x7 Surveillance</p> 
+        <video id="img-1" autoplay controls loop></video>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('img-1');
+            video.src = "{{ video_feed }}";
+        });
+    </script>
+</body>
+</html> -->

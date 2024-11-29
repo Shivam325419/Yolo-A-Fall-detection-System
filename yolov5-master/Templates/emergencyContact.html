@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts</title>
+    <style>
+         body {
+            font-family: "Inria Sans", sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #D9D9D9;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 800%;
+             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-family: "Inria Sans", sans-serif;
+            display: inline;
+        }
+        .add-button {
+            display: inline;
+            float: right;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            /* background-color: #007BFF; */
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .header {
+            text-align: center;
+        }
+        .header-text {
+            font-size: 20px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .button-and-heading {
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+        .navbar {
+            background-color: #F1F2ED;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .navbar-logo img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar-menu-item {
+            margin-bottom: 20px;
+        }
+
+        .navbar-menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .navbar-profile img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Add styling for links and images */
+        .navbar-menu-item a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .line {
+            height: 1px;
+            width: 100%;
+            background-color: #080202;
+            margin-top: 340px ;
+        }
+        .line1 {
+            height: 1px;
+            width: 100%;
+            background-color: #080202;
+            margin-top: 20px ;
+        }
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;100;400;500;600;700;800&display=swap");
+        .navbar {
+            background-color: #F1F2ED;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+            font-size: 18px;
+            padding: 20px 0;
+        }
+
+        .navbar-logo img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .navbar-menu-item {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .navbar-menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .navbar-profile img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Add styling for links and images */
+        .navbar-menu-item a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .line {
+            width: 2px;
+            height: 20px;
+            background-color: #fff;
+            margin-top: 340px ;
+        }
+        .line1 {
+            height: 1px;
+            width: 100%;
+            background-color: #fff;
+            margin-top: 20px ;
+        }
+ @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    input {
+      font-family: "Poppins", sans-serif;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar-menu">
+            <li class="navbar-menu-item">
+                <img src="/static/search-engine.png" alt="User Profile" style="height: 24px; width: 24px;">
+                <a href="/dashboard">Home</a>
+            </li>
+            <div class="line1"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/siren.png" alt="Emergency Contacts" style="height: 24px; width: 24px;">
+                <a href="/emergencyContact">Emergency Contacts</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/detective.png" alt="Detection" style="height: 24px; width: 24px;">
+                <a href="/detectionHistory">Detection History</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/help-desk.png" alt="Support" style="height: 24px; width: 24px;">
+                <a href="/support">Support</a>
+            </li>
+            <li class="navbar-menu-item">
+                <img src="/static/analytics.png" alt="Statistics" style="height: 24px; width: 24px;">
+                <a href="/statistics">Statistics</a>
+            </li> 
+            <li class="navbar-menu-item">
+                <img src="/static/exit.png" alt="Logout" style="height: 24px; width: 24px;">
+                <a href="/logout">Logout</a>
+            </li>
+            <div class="line"></div>
+        
+            <li class="navbar-menu-item">
+                <img src="/static/customer.png" alt="User Profile" style="height: 24px; width: 24px; border-radius: 50%;">
+                <a href="/profile">{{user_name}}</a>
+            </li>
+         
+    </div>
+        </ul>
+    <center>
+        <div class="header" >
+            <p class="header-text" style="margin-top: 5%; margin-bottom:30px;" >Varishta Rakshak &#129309</p>
+            <div class="button-and-heading">
+                <p style="display: inline; margin-right: 85px;"  >Emergency Contacts</p>
+                <a href="/add_emergency_contact" style="color: rgb(23, 140, 179);">Add</a>
+            </div>
+        </div> <br> <br>
+        <div class="container" >
+            {% if not emergency_contacts %}
+                <p>You haven't added any emergency contacts yet.</p>
+            {% else %}
+                <table>
+                    <tbody>
+                        {% for contact_info in emergency_contacts[0].contacts %}
+                            <tr>
+                                <td>{{ contact_info.name }}</td>
+                                <td>{{ contact_info.phone_number }}</td>
+                                <td>{{ contact_info.phone_number2 }}</td>
+                                <td><a href="/update_account?parameter={{ contact_info.name }}">Edit</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </center>
+</body>
+</html>

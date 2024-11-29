@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varishta Rakshak Sign-In/Sign-Up</title>
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    input {
+      font-family: "Poppins", sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      background-color: white;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .forms-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .signin-signup {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      left: 75%;
+      width: 50%;
+      transition: 1s 0.7s ease-in-out;
+      display: grid;
+      grid-template-columns: 1fr;
+      z-index: 5;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0rem 5rem;
+      transition: all 0.2s 0.7s;
+      overflow: hidden;
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+
+    form.sign-up-form {
+      /* opacity: 0; */
+      z-index: 1;
+    }
+
+    form.sign-in-form {
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 2.2rem;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .input-field {
+      max-width: 380px;
+      width: 100%;
+      background-color: white;
+      margin: 10px 0;
+      height: 55px;
+      border-radius: 55px;
+      display: grid;
+      grid-template-columns: 15% 85%;
+      padding: 0 0.4rem;
+      position: relative;
+    }
+
+    .input-field i {
+      text-align: center;
+      line-height: 55px;
+      color: black;
+      transition: 0.5s;
+      font-size: 1.1rem;
+    }
+
+    .input-field input {
+      background: none;
+      outline: none;
+      border: none;
+      line-height: 1;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: black;
+    }
+
+    .input-field input::placeholder {
+      color: gray;
+      font-weight: 500;
+    }
+
+    .social-text {
+      padding: 0.7rem 0;
+      font-size: 1rem;
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: center;
+    }
+
+    .social-icon {
+      height: 46px;
+      width: 46px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0.45rem;
+      color: rgb(23, 140, 179);
+      border-radius: 50%;
+      border: 1px solid rgb(23, 140, 179);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+
+    .social-icon:hover {
+      color: black;
+      border-color: black;
+    }
+
+    .btn {
+      width: 150px;
+      background-color: rgb(23, 140, 179);
+      border: none;
+      outline: none;
+      height: 49px;
+      border-radius: 49px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+
+    .btn:hover {
+      background-color: rgb(10, 13, 179);
+    }
+
+    .panels-container {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container:before {
+      content: "";
+      position: absolute;
+      height: 2000px;
+      width: 2000px;
+      top: -10%;
+      right: 48%;
+      transform: translateY(-50%);
+      background-image: linear-gradient(-45deg, rgb(23, 140, 179) 0%, rgb(23, 140, 179) 100%);
+      transition: 1.8s ease-in-out;
+      border-radius: 50%;
+      z-index: 6;
+    }
+
+    .image {
+      width: 115%;
+      transition: transform 1.1s ease-in-out;
+      transition-delay: 0.4s;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-around;
+      text-align: center;
+      z-index: 6;
+    }
+
+    .left-panel {
+      pointer-events: all;
+      padding: 3rem 12% 2rem 12%;
+    }
+
+    .right-panel {
+      pointer-events: none;
+      padding: 3rem 12% 2rem 17%;
+    }
+
+    .panel .content {
+      color: #fff;
+      transition: transform 0.9s ease-in-out;
+      transition-delay: 0.6s;
+    }
+
+    .panel h3 {
+      font-weight: 600;
+      line-height: 1;
+      font-size: 1.5rem;
+    }
+
+    .panel p {
+      font-size: 0.95rem;
+      padding: 0.7rem 0;
+    }
+
+    .btn.transparent {
+      margin: 0;
+      background: none;
+      border: 2px solid #fff;
+      width: 130px;
+      height: 41px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .right-panel .image,
+    .right-panel .content {
+      transform: translateX(800px);
+    }
+
+    /* ANIMATION */
+
+    .container.sign-up-mode:before {
+      transform: translate(100%, -50%);
+      right: 52%;
+    }
+
+    .container.sign-up-mode .left-panel .image,
+    .container.sign-up-mode .left-panel .content {
+      transform: translateX(-800px);
+    }
+
+    .container.sign-up-mode .signin-signup {
+      left: 25%;
+    }
+
+    .container.sign-up-mode form.sign-up-form {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .container.sign-up-mode form.sign-in-form {
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .container.sign-up-mode .right-panel .image,
+    .container.sign-up-mode .right-panel .content {
+      transform: translateX(0%);
+    }
+
+    .container.sign-up-mode .left-panel {
+      pointer-events: none;
+    }
+
+    .container.sign-up-mode .right-panel {
+      pointer-events: all;
+    }
+
+    @media (max-width: 870px) {
+      .container {
+        min-height: 800px;
+        height: 100vh;
+      }
+
+      .signin-signup {
+        width: 100%;
+        top: 95%;
+        transform: translate(-50%, -100%);
+        transition: 1s 0.8s ease-in-out;
+      }
+
+      .signin-signup,
+      .container.sign-up-mode .signin-signup {
+        left: 50%;
+      }
+
+      .panels-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 2fr 1fr;
+      }
+
+      .panel {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2.5rem 8%;
+        grid-column: 1 / 2;
+      }
+
+      .right-panel {
+        grid-row: 3 / 4;
+      }
+
+      .left-panel {
+        grid-row: 1 / 2;
+      }
+
+      .image {
+        width: 200px;
+        transition: transform 0.9s ease-in-out;
+        transition-delay: 0.6s;
+      }
+
+      .panel .content {
+        padding-right: 15%;
+        transition: transform 0.9s ease-in-out;
+        transition-delay: 0.8s;
+      }
+
+      .panel h3 {
+        font-size: 1.2rem;
+      }
+
+      .panel p {
+        font-size: 0.7rem;
+        padding: 0.5rem 0;
+      }
+
+      .btn.transparent {
+        width: 110px;
+        height: 35px;
+        font-size: 0.7rem;
+      }
+
+      .container:before {
+        width: 1500px;
+        height: 1500px;
+        transform: translateX(-50%);
+        left: 30%;
+        bottom: 68%;
+        right: initial;
+        top: initial;
+        transition: 2s ease-in-out;
+      }
+
+      .container.sign-up-mode:before {
+        transform: translate(-50%, 100%);
+        bottom: 32%;
+        right: initial;
+      }
+
+      .container.sign-up-mode .left-panel .image,
+      .container.sign-up-mode .left-panel .content {
+        transform: translateY(-300px);
+      }
+
+      .container.sign-up-mode .right-panel .image,
+      .container.sign-up-mode .right-panel .content {
+        transform: translateY(0px);
+      }
+
+      .right-panel .image,
+      .right-panel .content {
+        transform: translateY(300px);
+      }
+
+      .container.sign-up-mode .signin-signup {
+        top: 5%;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @media (max-width: 570px) {
+      form {
+        padding: 0 1.5rem;
+      }
+
+      .image {
+        display: none;
+      }
+
+      .panel .content {
+        padding: 0.5rem 1rem;
+      }
+
+      .container {
+        padding: 1.5rem;
+      }
+
+      .container:before {
+        bottom: 72%;
+        left: 50%;
+      }
+
+      .container.sign-up-mode:before {
+        bottom: 28%;
+        left: 50%;
+      }
+
+
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+
+        <form id="registration-form" class="sign-up-form" method="post" onsubmit="return validateForm();">
+
+          <!-- <h2 class="title">Sign up</h2> -->
+          <h1 class="title">Varishta Rakshak</h1>
+
+          <div class="input-field"><i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" id="name" name="name" required oninput="validateInput()" />
+          </div>
+
+          <div class="input-field"><i class="fas fa-solid fa-phone"></i>
+            <input type="number" placeholder="Phone Number" id="number" name="number" required />
+          </div>
+
+          <div class="input-field"><i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Email" id="email" name="email" required />
+          </div>
+
+          <div class="input-field"><i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="password" name="password" required />
+          </div>
+
+          <div class="input-field"><i class="fas fa-lock"></i>
+            <input type="password" placeholder=" Confirm Password" id="confirm-password" name="confirm-password"
+              required />
+          </div>
+          <div>
+            <a href='/forgotPassword' id='forgotPassword'>Forgot Password</a><br><br>
+            <a href='/' id='Register'>Sign In</a>
+
+          </div>
+          <input type="submit" class="btn" value="Submit" id="submit" />
+
+          <!-- <input type="reset" class="btn" value="Cancel" /> -->
+
+          <!-- <p class="social-text">Sign up with social platforms</p>
+          <div class="social-media">
+            <a href="http://www.google.com" class="social-icon"><i class="fab fa-google"></i></a>
+            <a href="http://www.linkedin.com" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div> -->
+        </form>
+
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <img src="/static/1.png" class="image" />
+      </div>
+
+    </div>
+  </div>
+  <center>
+
+    <div id="toast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+      <div class="toast-header">
+        <strong class="mr-auto" style="color: black;">Success</strong>
+        <button type="button" class="ml-2 mb-1 close " data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body" id="toast-message1">
+      </div>
+    </div>
+  </center>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script>
+    // Function to display the toast message
+    function showToast(message, isSuccess) {
+      const toastId = isSuccess ? 'toast1' : 'toast';
+      const toastMessageId = isSuccess ? 'toast-message1' : 'toast-message';
+      const toast = document.getElementById(toastId);
+      const toastMessage = document.getElementById(toastMessageId);
+      toastMessage.textContent = message;
+      const toastInstance = new bootstrap.Toast(toast);
+      toastInstance.show();
+    }
+
+    // Check if the 'error' parameter is set in the URL to show the error toast
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    if (error) {
+      showToast('Authentication failed. Please check your credentials.', false); // Show error message
+    }
+
+    // Check if the 'success' parameter is set in the URL to show the success toast
+    const success = urlParams.get('success');
+    if (success === '1') {
+      showToast('Password reset link sent successfully!', true); // Show success message
+    }
+  </script>
+  <!-- <script>
+    function validateInput() {
+      var input = document.getElementById("name").value;
+      var regex = /^[a-zA-Z]+$/;
+      if (!regex.test(input)) {
+        alert("Please enter only alphabets.");
+        document.getElementById("name").value = "";
+      }
+    }
+  </script> -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+    const firebaseConfig = {
+    
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider(app);
+
+    const login = document.getElementById('login'); // Assuming you have a login button with the id 'login'
+
+    login.addEventListener('click', (e) => {
+      // Sign in with Google using popup
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access Google APIs.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+
+          // The signed-in user info.
+          const user = result.user;
+
+          // Check for user authentication state
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              // User is signed in, redirect to the dashboard
+              window.location.href = 'dashboard'; // Change the URL to your dashboard page
+            }
+          });
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error.message);
+        });
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script>
+    function validateForm() {
+      var phoneNumber = document.getElementById('number').value;
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirm-password').value;
+
+      if (phoneNumber.length !== 10) {
+        alert('Phone number must be 10 digits');
+        return false;
+      }
+      if (password !== confirmPassword) {
+        alert('Password and confirm password do not match');
+        return false;
+      }
+      if (confirmPassword.length < 8) {
+        alert('Password cannot be less than 8 characters');
+        return false;
+      }
+
+      return true;
+    } </script>
+
+
+</body>
+
+</html>
